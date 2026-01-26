@@ -66,7 +66,7 @@ export default {
         },
       },
       fontFamily: {
-        serif: ["'Bodoni Moda'", "Georgia", "serif"],
+        serif: ["'Playfair Display'", "Georgia", "serif"],
         sans: ["system-ui", "-apple-system", "BlinkMacSystemFont", "'Segoe UI'", "Roboto", "sans-serif"],
       },
       fontSize: {
