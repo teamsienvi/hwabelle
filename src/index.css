@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -98,14 +98,14 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: 'Bodoni Moda', Georgia, serif;
     @apply font-normal tracking-tight;
   }
 }
 
 @layer components {
   .editorial-heading {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: 'Bodoni Moda', Georgia, serif;
     @apply font-normal tracking-tight leading-tight;
   }
 
