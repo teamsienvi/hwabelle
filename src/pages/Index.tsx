@@ -18,8 +18,8 @@ const Index = () => {
   const productHighlights = [
     {
       icon: Leaf,
-      title: "Sustainable Materials",
-      description: "Crafted from responsibly sourced wood and durable hardware built to last."
+      title: "Different Sizes for Different Flowers",
+      description: "We provide a selection of different sized presses to meet all your flower needs."
     },
     {
       icon: Gift,
