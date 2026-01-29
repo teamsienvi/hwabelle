@@ -8,7 +8,8 @@ import FloralBorder from "@/components/decorations/FloralBorder";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Leaf, Gift, BookOpen, Sparkles } from "lucide-react";
-import heroImage from "@/assets/hero-flower-press.jpg";
+import heroArrangement from "@/assets/hero-pressed-arrangement.png";
+import heroFlowImage from "@/assets/hero-pressed-flow.png";
 import lifestyleImage from "@/assets/lifestyle-pressing.jpg";
 import pressedFlowersImage from "@/assets/pressed-flowers-collection.jpg";
 import blogImage from "@/assets/blog-botanical-art.jpg";
@@ -61,53 +62,60 @@ const Index = () => {
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center">
-        <FloralBorder position="all" size="lg" />
-        <div className="absolute inset-0">
-          <img 
-            src={heroImage} 
-            alt="Hwabelle Flower Press Kit with pressed flowers" 
-            className="w-full h-full object-cover"
+      {/* Hero Section - Main Brand Image */}
+      <section className="relative min-h-[80vh] md:min-h-[90vh] flex items-center justify-center bg-background">
+        <div className="container relative z-10 flex flex-col items-center text-center py-12">
+          <motion.img 
+            src={heroArrangement}
+            alt="Hwabelle - Pressed flower arrangement with logo"
+            className="w-full max-w-4xl h-auto"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
           />
-          <div className="absolute inset-0 bg-background/30" />
-        </div>
-        <div className="container relative z-10">
-          <motion.div 
-            initial={{ opacity: 0, y: 40 }}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-            className="max-w-2xl"
+            transition={{ duration: 0.8, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+            className="mt-8 md:mt-12 flex flex-col sm:flex-row gap-4"
           >
-            <h1 className="font-serif text-display-lg md:text-display-xl text-foreground mb-6">
-              Preserve nature's beauty, one bloom at a time.
-            </h1>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-              className="text-lg md:text-xl text-foreground/80 mb-10 leading-relaxed"
-            >
-              A thoughtfully crafted flower press for gardeners, artists, and anyone who treasures nature's fleeting moments.
-            </motion.p>
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-              className="flex flex-col sm:flex-row gap-4"
-            >
-              <Button variant="hero" size="xl" asChild>
-                <a href="[ADD AMAZON LINK]" target="_blank" rel="noopener noreferrer">
-                  Shop the Kit
-                </a>
-              </Button>
-              <Button variant="hero-outline" size="xl" asChild>
-                <a href="#ai-waitlist">
-                  Join AI Waitlist
-                </a>
-              </Button>
-            </motion.div>
+            <Button variant="hero" size="xl" asChild>
+              <a href="[ADD AMAZON LINK]" target="_blank" rel="noopener noreferrer">
+                Shop the Kit
+              </a>
+            </Button>
+            <Button variant="hero-outline" size="xl" asChild>
+              <a href="#ai-waitlist">
+                Join AI Waitlist
+              </a>
+            </Button>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Secondary Hero - Flowing Flowers */}
+      <section className="relative py-16 md:py-24 bg-background overflow-hidden">
+        <FloralBorder position="all" size="lg" />
+        <div className="container">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <ScrollReveal direction="left">
+              <motion.img 
+                src={heroFlowImage}
+                alt="Pressed flowers flowing arrangement"
+                className="w-full h-auto"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.6 }}
+              />
+            </ScrollReveal>
+            <ScrollReveal direction="right" delay={0.2}>
+              <h2 className="font-serif text-display md:text-display-lg mb-6">
+                Preserve nature's beauty, one bloom at a time.
+              </h2>
+              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                A thoughtfully crafted flower press for gardeners, artists, and anyone who treasures nature's fleeting moments.
+              </p>
+            </ScrollReveal>
+          </div>
         </div>
       </section>
 
