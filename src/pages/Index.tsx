@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import NewsletterForm from "@/components/sections/NewsletterForm";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import StaggerContainer, { StaggerItem } from "@/components/animations/StaggerContainer";
+import FlowerBurst from "@/components/animations/FlowerBurst";
+import FloralBorder from "@/components/decorations/FloralBorder";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Leaf, Gift, BookOpen, Sparkles } from "lucide-react";
@@ -61,6 +63,7 @@ const Index = () => {
     <Layout>
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center">
+        <FloralBorder position="all" size="lg" />
         <div className="absolute inset-0">
           <img 
             src={heroImage} 
@@ -176,7 +179,8 @@ const Index = () => {
       </section>
 
       {/* AI Designer Assistant */}
-      <section id="ai-waitlist" className="py-20 md:py-30 bg-secondary">
+      <section id="ai-waitlist" className="relative py-20 md:py-30 bg-secondary overflow-hidden">
+        <FlowerBurst originX="left" originY="top" />
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
             <ScrollReveal direction="left">
@@ -277,7 +281,8 @@ const Index = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 md:py-30 bg-background">
+      <section className="relative py-20 md:py-30 bg-background overflow-hidden">
+        <FloralBorder position="all" size="md" />
         <div className="container">
           <ScrollReveal className="max-w-2xl mx-auto text-center">
             <h2 className="font-serif text-display md:text-display-lg mb-6">
