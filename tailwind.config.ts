@@ -26,6 +26,14 @@ export default {
         cream: "hsl(var(--cream))",
         "warm-gray": "hsl(var(--warm-gray))",
         divider: "hsl(var(--divider))",
+        petal: {
+          pink: "hsl(var(--petal-pink))",
+          lavender: "hsl(var(--petal-lavender))",
+          sage: "hsl(var(--petal-sage))",
+          pale: "hsl(var(--petal-pale))",
+          yellow: "hsl(var(--petal-yellow))",
+          blush: "hsl(var(--petal-blush))",
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
