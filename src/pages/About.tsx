@@ -96,10 +96,10 @@ const About = () => {
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="font-serif text-display mb-8">From the Founder</h2>
             <blockquote className="font-serif text-xl md:text-2xl italic text-foreground/80 mb-6">
-              "[ADD FOUNDER QUOTE]"
+              "Pressing flowers calms the soul—it's like meditating. Everyone should do it."
             </blockquote>
             <p className="text-muted-foreground">
-              — [ADD FOUNDER NAME], Founder of Hwabelle
+              — Suzie Oh, Founder of Hwabelle
             </p>
           </div>
         </div>
