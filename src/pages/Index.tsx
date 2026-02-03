@@ -63,7 +63,7 @@ const Index = () => {
   return (
     <Layout>
       {/* Hero Section - Full Bleed Pressed Flower Background */}
-      <section className="relative min-h-screen w-full overflow-hidden">
+      <section className="relative min-h-[110vh] w-full overflow-hidden">
         {/* Full-screen background image that stretches to all edges */}
         <motion.div 
           className="absolute inset-0 w-full h-full"
@@ -74,9 +74,12 @@ const Index = () => {
           <img 
             src={heroArrangement}
             alt="Hwabelle - Pressed flower arrangement"
-            className="w-full h-full object-cover object-center"
+            className="w-full h-full object-cover object-top"
           />
         </motion.div>
+        
+        {/* Gradient fade at bottom for smooth transition */}
+        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none" />
         
         {/* Centered CTA buttons */}
         <div className="absolute inset-0 flex items-end justify-center pb-16 md:pb-24 z-10">
