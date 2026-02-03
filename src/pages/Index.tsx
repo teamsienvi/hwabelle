@@ -78,6 +78,9 @@ const Index = () => {
           />
         </motion.div>
         
+        {/* Gradient fade at bottom for smooth transition */}
+        <div className="absolute bottom-0 left-0 right-0 h-5 bg-gradient-to-t from-background to-transparent pointer-events-none" />
+        
         
         {/* Centered CTA buttons */}
         <div className="absolute inset-0 flex items-end justify-center pb-16 md:pb-24 z-10">
