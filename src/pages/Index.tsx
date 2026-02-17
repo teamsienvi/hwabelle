@@ -1,6 +1,5 @@
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import NewsletterForm from "@/components/sections/NewsletterForm";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import StaggerContainer, { StaggerItem } from "@/components/animations/StaggerContainer";
 import FlowerBurst from "@/components/animations/FlowerBurst";
@@ -198,16 +197,16 @@ const Index = () => {
         </div>
       </section>
 
-      {/* AI Designer Assistant */}
-      <section id="ai-waitlist" className="relative py-20 md:py-30 bg-secondary overflow-hidden">
+      {/* AI Designer Assistant - Live */}
+      <section id="ai-designer" className="relative py-20 md:py-30 bg-secondary overflow-hidden">
         <FlowerBurst originX="left" originY="top" />
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
             <ScrollReveal direction="left">
-              <p className="caption mb-4">Coming Soon</p>
+              <p className="caption mb-4">Now Live</p>
               <h2 className="font-serif text-display mb-6">AI Designer Assistant</h2>
               <p className="text-muted-foreground mb-8 leading-relaxed">
-                An intelligent companion for your botanical journey. Get personalized recommendations, identify plants, and discover design possibilities.
+                An intelligent companion for your botanical journey. Upload a photo of any flower to get identification, pressing guidance, and beautiful design ideas.
               </p>
               <ul className="space-y-4 mb-8">
                 {aiFeatures.map((feature, index) => (
@@ -227,9 +226,14 @@ const Index = () => {
             </ScrollReveal>
             <ScrollReveal direction="right" delay={0.2}>
               <div className="bg-background p-8 md:p-10">
-                <h3 className="font-serif text-xl mb-2">Be the first to know</h3>
-                <p className="text-muted-foreground mb-6">Join the waitlist for early access.</p>
-                <NewsletterForm variant="ai-waitlist" />
+                <h3 className="font-serif text-xl mb-2">Try the AI Designer</h3>
+                <p className="text-muted-foreground mb-6">Upload a flower photo and get instant botanical insights and design suggestions.</p>
+                <Button variant="hero" size="lg" className="w-full" asChild>
+                  <Link to="/designer">
+                    <Sparkles size={16} className="mr-2" />
+                    Open AI Designer
+                  </Link>
+                </Button>
               </div>
             </ScrollReveal>
           </div>
