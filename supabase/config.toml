@@ -5,3 +5,6 @@ verify_jwt = false
 
 [functions.generate-email-funnel]
 verify_jwt = false
+
+[functions.ai-designer]
+verify_jwt = false
