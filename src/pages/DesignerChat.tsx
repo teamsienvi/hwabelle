@@ -14,12 +14,12 @@ interface Message {
     imagePreview?: string;
 }
 
-const suggestedPrompts = [
-    "Identify this flower and suggest pressing techniques",
-    "What flowers pair well with this for a botanical arrangement?",
-    "How should I press this to preserve its color?",
-    "Give me design ideas for framing these pressed flowers",
-    "What's the best time to harvest this for pressing?",
+const textPrompts = [
+    "What flowers are best for beginners to press?",
+    "How do I prevent mold when pressing flowers?",
+    "Give me design ideas for framing pressed flowers",
+    "What drying support tools do you recommend?",
+    "Teach me about flower disassembly for pressing",
 ];
 
 const DesignerChat = () => {
@@ -180,7 +180,7 @@ const DesignerChat = () => {
 
                             <div className="space-y-2">
                                 <p className="text-xs text-muted-foreground text-center mb-4 uppercase tracking-widest">Try asking</p>
-                                {suggestedPrompts.map((prompt, i) => (
+                                {textPrompts.map((prompt, i) => (
                                     <motion.button
                                         key={i}
                                         initial={{ opacity: 0, x: -10 }}
