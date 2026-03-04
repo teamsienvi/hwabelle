@@ -3,6 +3,9 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Sparkles, Flower2, Palette, BookOpen, ShieldCheck, Leaf, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useCart } from "@/hooks/useCart";
+import { useToast } from "@/hooks/use-toast";
+import productImage from "@/assets/product-flower-press.jpg";
 
 const features = [
   {
@@ -50,6 +53,22 @@ const courseModules = [
 ];
 
 const Designer = () => {
+  const { addItem, openCart } = useCart();
+  const { toast } = useToast();
+
+  const handleAddKitAndAI = () => {
+    addItem({ id: "flower-press-kit", name: "Acrylic Flower Press Kit", price: 34.99, image: productImage });
+    addItem({ id: "ai-designer-access", name: "AI Designer Access", price: 9.99 });
+    toast({ title: "Added to cart", description: "Kit + AI Designer Access added to your cart." });
+    openCart();
+  };
+
+  const handleAddAIOnly = () => {
+    addItem({ id: "ai-designer-access", name: "AI Designer Access", price: 9.99 });
+    toast({ title: "Added to cart", description: "AI Designer Access added to your cart." });
+    openCart();
+  };
+
   return (
     <Layout>
       <div className="min-h-screen pt-16 md:pt-20">
@@ -77,18 +96,14 @@ const Designer = () => {
                   for botanical art.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link to="/shop">
-                    <Button variant="hero" size="lg" className="gap-2 text-base px-8">
-                      Get the Kit + AI Access
-                      <ArrowRight size={16} />
-                    </Button>
-                  </Link>
-                  <Link to="/shop">
-                    <Button variant="outline" size="lg" className="gap-2 text-base px-8 border-foreground/20 hover:bg-foreground hover:text-background">
-                      AI Designer Only
-                      <Sparkles size={16} />
-                    </Button>
-                  </Link>
+                  <Button variant="hero" size="lg" className="gap-2 text-base px-8" onClick={handleAddKitAndAI}>
+                    Get the Kit + AI Access
+                    <ArrowRight size={16} />
+                  </Button>
+                  <Button variant="outline" size="lg" className="gap-2 text-base px-8 border-foreground/20 hover:bg-foreground hover:text-background" onClick={handleAddAIOnly}>
+                    AI Designer Only
+                    <Sparkles size={16} />
+                  </Button>
                 </div>
               </motion.div>
             </div>
@@ -139,12 +154,10 @@ const Designer = () => {
                     <span>Photo analysis & flower identification</span>
                   </li>
                 </ul>
-                <Link to="/shop" className="block">
-                  <Button variant="hero" size="lg" className="w-full gap-2">
-                    Shop the Kit
-                    <ArrowRight size={16} />
-                  </Button>
-                </Link>
+                <Button variant="hero" size="lg" className="w-full gap-2" onClick={handleAddKitAndAI}>
+                  Get Kit + AI Access
+                  <ArrowRight size={16} />
+                </Button>
               </motion.div>
 
               {/* AI Only */}
@@ -177,12 +190,10 @@ const Designer = () => {
                     <span>Design inspiration & salvage techniques</span>
                   </li>
                 </ul>
-                <Link to="/shop" className="block">
-                  <Button variant="outline" size="lg" className="w-full gap-2 border-foreground/20 hover:bg-foreground hover:text-background">
-                    Get AI Access
-                    <Sparkles size={16} />
-                  </Button>
-                </Link>
+                <Button variant="outline" size="lg" className="w-full gap-2 border-foreground/20 hover:bg-foreground hover:text-background" onClick={handleAddAIOnly}>
+                  Get AI Access
+                  <Sparkles size={16} />
+                </Button>
               </motion.div>
             </div>
           </div>
@@ -279,12 +290,10 @@ const Designer = () => {
                 Get the Hwabelle Flower Press Kit and unlock your personal AI preservation expert.
                 Every kit includes full access to the AI Designer Assistant.
               </p>
-              <Link to="/shop">
-                <Button variant="hero" size="lg" className="gap-2 text-base px-8">
-                  Shop the Kit
-                  <ArrowRight size={16} />
-                </Button>
-              </Link>
+              <Button variant="hero" size="lg" className="gap-2 text-base px-8" onClick={handleAddKitAndAI}>
+                Get the Kit + AI Access
+                <ArrowRight size={16} />
+              </Button>
             </motion.div>
           </div>
         </section>
