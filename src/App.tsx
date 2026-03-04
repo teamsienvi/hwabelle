@@ -4,6 +4,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
+import { CartProvider } from "@/hooks/useCart";
+import CartDrawer from "@/components/CartDrawer";
 import Index from "./pages/Index";
 import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
@@ -19,6 +21,7 @@ import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
 import Designer from "./pages/Designer";
 import DesignerChat from "./pages/DesignerChat";
+import OrderConfirmation from "./pages/OrderConfirmation";
 import AdminLogin from "./pages/AdminLogin";
 import Dashboard from "./pages/admin/Dashboard";
 import BlogManager from "./pages/admin/BlogManager";
@@ -37,43 +40,47 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/product/:id" element={<ProductDetail />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/designer" element={<Designer />} />
-            <Route path="/designer-test" element={<DesignerChat />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/shipping" element={<Shipping />} />
-            <Route path="/returns" element={<Returns />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/terms" element={<Terms />} />
-            {/* Admin Routes */}
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin/dashboard" element={<Dashboard />} />
-            <Route path="/admin/blog" element={<BlogManager />} />
-            <Route path="/admin/faqs" element={<FAQManager />} />
-            <Route path="/admin/email" element={<EmailDashboard />} />
-            <Route path="/admin/email/funnel" element={<EmailFunnelCreator />} />
-            <Route path="/admin/email/campaigns" element={<EmailCampaignList />} />
-            <Route path="/admin/email/campaign/:id" element={<EmailCampaignDetail />} />
-            <Route path="/admin/email/campaign/:id/setup" element={<EmailCampaignSetup />} />
-            <Route path="/admin/email/compose" element={<EmailCompose />} />
-            <Route path="/admin/email/customers" element={<EmailCustomers />} />
-            <Route path="/admin/email/settings" element={<EmailSettings />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
+      <CartProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <CartDrawer />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/shop" element={<Shop />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/designer" element={<Designer />} />
+              <Route path="/designer-test" element={<DesignerChat />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/shipping" element={<Shipping />} />
+              <Route path="/returns" element={<Returns />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/order-confirmation" element={<OrderConfirmation />} />
+              {/* Admin Routes */}
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin/dashboard" element={<Dashboard />} />
+              <Route path="/admin/blog" element={<BlogManager />} />
+              <Route path="/admin/faqs" element={<FAQManager />} />
+              <Route path="/admin/email" element={<EmailDashboard />} />
+              <Route path="/admin/email/funnel" element={<EmailFunnelCreator />} />
+              <Route path="/admin/email/campaigns" element={<EmailCampaignList />} />
+              <Route path="/admin/email/campaign/:id" element={<EmailCampaignDetail />} />
+              <Route path="/admin/email/campaign/:id/setup" element={<EmailCampaignSetup />} />
+              <Route path="/admin/email/compose" element={<EmailCompose />} />
+              <Route path="/admin/email/customers" element={<EmailCustomers />} />
+              <Route path="/admin/email/settings" element={<EmailSettings />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </CartProvider>
     </AuthProvider>
   </QueryClientProvider>
 );

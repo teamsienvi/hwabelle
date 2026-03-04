@@ -1,17 +1,36 @@
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { Check } from "lucide-react";
+import { Check, ShoppingBag } from "lucide-react";
 import productImage from "@/assets/product-flower-press.jpg";
 import lifestyleImage from "@/assets/lifestyle-pressing.jpg";
 import heroImage from "@/assets/hero-flower-press.jpg";
 import pressedFlowers from "@/assets/pressed-flowers-collection.jpg";
 import NewsletterForm from "@/components/sections/NewsletterForm";
+import { useCart } from "@/hooks/useCart";
+import { useToast } from "@/hooks/use-toast";
+
+const PRODUCT_PRICE = 34.99;
 
 const ProductDetail = () => {
   const [selectedImage, setSelectedImage] = useState(0);
-  
+  const { addItem } = useCart();
+  const { toast } = useToast();
+
   const images = [productImage, lifestyleImage, heroImage, pressedFlowers];
+
+  const handleAddToCart = () => {
+    addItem({
+      id: "flower-press-kit",
+      name: "Acrylic Flower Press Kit",
+      price: PRODUCT_PRICE,
+      image: productImage,
+    });
+    toast({
+      title: "Added to cart",
+      description: "Acrylic Flower Press Kit has been added to your cart.",
+    });
+  };
 
   const features = [
     "Crystal-clear acrylic plates — see your arrangement as it presses",
@@ -48,9 +67,9 @@ const ProductDetail = () => {
             {/* Gallery */}
             <div className="space-y-4">
               <div className="aspect-square bg-secondary overflow-hidden">
-                <img 
-                  src={images[selectedImage]} 
-                  alt="Flower Press Kit" 
+                <img
+                  src={images[selectedImage]}
+                  alt="Flower Press Kit"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -59,9 +78,8 @@ const ProductDetail = () => {
                   <button
                     key={index}
                     onClick={() => setSelectedImage(index)}
-                    className={`aspect-square bg-secondary overflow-hidden border-2 transition-colors ${
-                      selectedImage === index ? "border-foreground" : "border-transparent"
-                    }`}
+                    className={`aspect-square bg-secondary overflow-hidden border-2 transition-colors ${selectedImage === index ? "border-foreground" : "border-transparent"
+                      }`}
                   >
                     <img src={img} alt={`View ${index + 1}`} className="w-full h-full object-cover" />
                   </button>
@@ -73,8 +91,8 @@ const ProductDetail = () => {
             <div className="lg:py-4">
               <p className="caption mb-3">Hwabelle</p>
               <h1 className="font-serif text-display mb-2">Acrylic Flower Press Kit</h1>
-              <p className="text-2xl font-serif mb-6">Coming Soon</p>
-              
+              <p className="text-2xl font-serif mb-6">${PRODUCT_PRICE.toFixed(2)}</p>
+
               <p className="text-muted-foreground leading-relaxed mb-8">
                 A complete DIY flower press kit for beginners and experienced crafters alike. Preserve your wedding bouquet, seasonal garden flowers, or any bloom worth keeping — with crystal-clear acrylic plates that let you see exactly how your arrangement is taking shape.
               </p>
@@ -94,10 +112,15 @@ const ProductDetail = () => {
 
               {/* CTA */}
               <div className="space-y-3 mb-10">
-                <Button variant="hero" size="xl" className="w-full" asChild>
-                  <a href="[ADD AMAZON LINK]" target="_blank" rel="noopener noreferrer">
-                    Buy on Amazon
-                  </a>
+                <Button
+                  variant="hero"
+                  size="xl"
+                  className="w-full"
+                  onClick={handleAddToCart}
+                  id="add-to-cart-button"
+                >
+                  <ShoppingBag size={20} className="mr-2" />
+                  Add to Cart
                 </Button>
                 <p className="text-center text-sm text-muted-foreground">
                   Free shipping on orders over $35
@@ -107,10 +130,10 @@ const ProductDetail = () => {
               {/* Shipping */}
               <div className="border-t border-divider pt-6">
                 <p className="text-sm text-muted-foreground">
-                  <strong className="text-foreground">Shipping:</strong> Fulfilled by Amazon. Typically arrives in 2-5 business days.
+                  <strong className="text-foreground">Shipping:</strong> Ships within 1-3 business days. Typically arrives in 3-7 business days.
                 </p>
                 <p className="text-sm text-muted-foreground mt-2">
-                  <strong className="text-foreground">Returns:</strong> 30-day return window through Amazon.
+                  <strong className="text-foreground">Returns:</strong> 30-day return window. See our <a href="/returns" className="underline hover:text-foreground transition-colors">return policy</a>.
                 </p>
               </div>
             </div>

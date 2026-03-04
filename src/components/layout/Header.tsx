@@ -1,12 +1,14 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ShoppingBag } from "lucide-react";
 import { useState } from "react";
 import logo from "@/assets/hwabelle-full-logo.jpg";
+import { useCart } from "@/hooks/useCart";
 
 const Header = () => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { itemCount, openCart } = useCart();
 
   const navLinks = [
     { href: "/shop", label: "Shop" },
@@ -24,9 +26,9 @@ const Header = () => {
       <div className="container flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <img 
-            src={logo} 
-            alt="Hwabelle" 
+          <img
+            src={logo}
+            alt="Hwabelle"
             className="h-10 md:h-12 w-auto object-contain"
           />
         </Link>
@@ -37,32 +39,39 @@ const Header = () => {
             <Link
               key={link.href}
               to={link.href}
-              className={`text-sm tracking-wide transition-colors hover:text-foreground ${
-                isActive(link.href) ? "text-foreground" : "text-muted-foreground"
-              }`}
+              className={`text-sm tracking-wide transition-colors hover:text-foreground ${isActive(link.href) ? "text-foreground" : "text-muted-foreground"
+                }`}
             >
               {link.label}
             </Link>
           ))}
         </nav>
 
-        {/* CTA Button */}
-        <div className="hidden md:block">
-          <Button variant="hero" size="sm" asChild>
-            <a href="[ADD AMAZON LINK]" target="_blank" rel="noopener noreferrer">
-              Buy Kit
-            </a>
-          </Button>
-        </div>
+        {/* Cart Button */}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={openCart}
+            className="relative p-2 text-muted-foreground hover:text-foreground transition-colors"
+            aria-label="Open cart"
+            id="cart-button"
+          >
+            <ShoppingBag size={22} />
+            {itemCount > 0 && (
+              <span className="absolute -top-0.5 -right-0.5 bg-foreground text-background text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center leading-none">
+                {itemCount > 9 ? "9+" : itemCount}
+              </span>
+            )}
+          </button>
 
-        {/* Mobile Menu Toggle */}
-        <button
-          className="md:hidden p-2"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+          {/* Mobile Menu Toggle */}
+          <button
+            className="md:hidden p-2"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Navigation */}
@@ -74,17 +83,20 @@ const Header = () => {
                 key={link.href}
                 to={link.href}
                 onClick={() => setIsMenuOpen(false)}
-                className={`text-lg tracking-wide transition-colors hover:text-foreground ${
-                  isActive(link.href) ? "text-foreground" : "text-muted-foreground"
-                }`}
+                className={`text-lg tracking-wide transition-colors hover:text-foreground ${isActive(link.href) ? "text-foreground" : "text-muted-foreground"
+                  }`}
               >
                 {link.label}
               </Link>
             ))}
-            <Button variant="hero" size="lg" className="mt-4" asChild>
-              <a href="[ADD AMAZON LINK]" target="_blank" rel="noopener noreferrer">
-                Buy Kit
-              </a>
+            <Button
+              variant="hero"
+              size="lg"
+              className="mt-4"
+              onClick={() => { setIsMenuOpen(false); openCart(); }}
+            >
+              <ShoppingBag size={18} className="mr-2" />
+              Cart {itemCount > 0 && `(${itemCount})`}
             </Button>
           </nav>
         </div>
