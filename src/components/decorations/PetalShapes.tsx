@@ -149,4 +149,4 @@ export const petalColors = [
   "hsl(var(--petal-blush))",
 ];
 
-export const PetalComponents = [Petal, Leaf, Daisy, HydrangeaPetal, RosePetal, CallaLily];
+export const PetalComponents = [Petal, Leaf, HydrangeaPetal, RosePetal, CallaLily];

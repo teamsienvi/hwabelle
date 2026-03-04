@@ -64,24 +64,24 @@ const Index = () => {
       {/* Hero Section - Full Bleed Pressed Flower Background */}
       <section className="relative min-h-screen w-full overflow-hidden">
         {/* Full-screen background image that stretches to all edges */}
-        <motion.div 
+        <motion.div
           className="absolute inset-0 w-full h-full"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <img 
+          <img
             src={heroArrangement}
             alt="Hwabelle - Pressed flower arrangement"
             className="w-full h-full object-cover object-center"
           />
         </motion.div>
-        
+
         {/* Gradient fade at top and bottom for smooth transitions */}
         <div className="absolute top-0 left-0 right-0 h-5 bg-gradient-to-b from-background to-transparent pointer-events-none" />
         <div className="absolute bottom-0 left-0 right-0 h-5 bg-gradient-to-t from-background to-transparent pointer-events-none" />
-        
-        
+
+
         {/* Centered CTA buttons */}
         <div className="absolute bottom-0 left-0 right-0 flex justify-center pb-20 sm:pb-24 md:pb-28 lg:pb-32 z-10">
           <motion.div
@@ -91,14 +91,14 @@ const Index = () => {
             className="flex flex-col sm:flex-row gap-3 sm:gap-4 px-4"
           >
             <Button variant="hero" size="lg" className="text-sm sm:text-base" asChild>
-              <a href="[ADD AMAZON LINK]" target="_blank" rel="noopener noreferrer">
+              <Link to="/product/flower-press-kit">
                 Shop the Kit
-              </a>
+              </Link>
             </Button>
             <Button variant="hero-outline" size="lg" className="text-sm sm:text-base" asChild>
-              <a href="#ai-waitlist">
-                Join AI Waitlist
-              </a>
+              <Link to="/designer">
+                Try AI Designer
+              </Link>
             </Button>
           </motion.div>
         </div>
@@ -110,7 +110,7 @@ const Index = () => {
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <ScrollReveal direction="left">
-              <motion.img 
+              <motion.img
                 src={heroFlowImage}
                 alt="Pressed flowers flowing arrangement"
                 className="w-full h-auto"
@@ -177,18 +177,18 @@ const Index = () => {
       <section className="py-0">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
           <ScrollReveal direction="left" className="aspect-square md:aspect-auto overflow-hidden">
-            <motion.img 
-              src={lifestyleImage} 
-              alt="Hands pressing flowers" 
+            <motion.img
+              src={lifestyleImage}
+              alt="Hands pressing flowers"
               className="w-full h-full object-cover"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.6 }}
             />
           </ScrollReveal>
           <ScrollReveal direction="right" className="aspect-square md:aspect-auto overflow-hidden">
-            <motion.img 
-              src={pressedFlowersImage} 
-              alt="Collection of pressed botanical specimens" 
+            <motion.img
+              src={pressedFlowersImage}
+              alt="Collection of pressed botanical specimens"
               className="w-full h-full object-cover"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.6 }}
@@ -210,8 +210,8 @@ const Index = () => {
               </p>
               <ul className="space-y-4 mb-8">
                 {aiFeatures.map((feature, index) => (
-                  <motion.li 
-                    key={index} 
+                  <motion.li
+                    key={index}
                     className="flex items-start gap-3"
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -259,9 +259,9 @@ const Index = () => {
               <StaggerItem key={index}>
                 <Link to={`/blog/${post.slug}`} className="group block">
                   <div className="aspect-[4/3] mb-4 overflow-hidden bg-secondary">
-                    <motion.img 
-                      src={blogImage} 
-                      alt={post.title} 
+                    <motion.img
+                      src={blogImage}
+                      alt={post.title}
                       className="w-full h-full object-cover"
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.5 }}
@@ -320,9 +320,9 @@ const Index = () => {
               transition={{ duration: 0.2 }}
             >
               <Button variant="hero" size="xl" asChild>
-                <a href="[ADD AMAZON LINK]" target="_blank" rel="noopener noreferrer">
-                  Buy on Amazon
-                </a>
+                <Link to="/product/flower-press-kit">
+                  Buy Kit
+                </Link>
               </Button>
             </motion.div>
           </ScrollReveal>
