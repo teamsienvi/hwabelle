@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import { CartProvider } from "@/hooks/useCart";
 import CartDrawer from "@/components/CartDrawer";
+import ScrollToTop from "@/components/ScrollToTop";
 import Index from "./pages/Index";
 import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
@@ -21,6 +22,7 @@ import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
 import Designer from "./pages/Designer";
 import DesignerChat from "./pages/DesignerChat";
+import DesignerTestFlow from "./pages/DesignerTestFlow";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import AdminLogin from "./pages/AdminLogin";
 import Dashboard from "./pages/admin/Dashboard";
@@ -46,6 +48,7 @@ const App = () => (
           <Sonner />
           <CartDrawer />
           <BrowserRouter>
+            <ScrollToTop />
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/shop" element={<Shop />} />
@@ -55,7 +58,8 @@ const App = () => (
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/designer" element={<Designer />} />
-              <Route path="/designer-test" element={<DesignerChat />} />
+              <Route path="/designer-test" element={<DesignerTestFlow />} />
+              <Route path="/designer-chat" element={<DesignerChat />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/shipping" element={<Shipping />} />
               <Route path="/returns" element={<Returns />} />
