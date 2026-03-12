@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hwabelle AI Designer — Test Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            color: #2c2c2c;
+            background: #faf8f5;
+            line-height: 1.7;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        @media print {
+            body {
+                padding: 20px;
+                background: white;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .page-break {
+                page-break-before: always;
+            }
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 0 32px;
+            border-bottom: 2px solid #e8e2db;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 32px;
+            font-weight: 600;
+            color: #2c2c2c;
+            margin-bottom: 6px;
+        }
+
+        .header .subtitle {
+            font-size: 14px;
+            color: #9b9b9b;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .header .badge {
+            display: inline-block;
+            margin-top: 16px;
+            background: #ecfdf5;
+            color: #047857;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 1px solid #a7f3d0;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 36px;
+        }
+
+        .section h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #2c2c2c;
+        }
+
+        .section h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin: 20px 0 8px;
+            color: #374151;
+        }
+
+        .section p {
+            font-size: 14px;
+            color: #4b5563;
+            margin-bottom: 12px;
+        }
+
+        /* URL Box */
+        .url-box {
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .url-box .icon {
+            font-size: 20px;
+        }
+
+        .url-box .url {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 14px;
+            color: #047857;
+            font-weight: 500;
+            word-break: break-all;
+        }
+
+        .url-box .label {
+            font-size: 11px;
+            color: #9b9b9b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Steps */
+        .steps {
+            counter-reset: step;
+            list-style: none;
+            padding: 0;
+        }
+
+        .steps li {
+            counter-increment: step;
+            padding: 16px 16px 16px 56px;
+            position: relative;
+            margin-bottom: 8px;
+            background: #fff;
+            border: 1px solid #f0ece8;
+            border-radius: 12px;
+            font-size: 14px;
+        }
+
+        .steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: 16px;
+            top: 16px;
+            width: 28px;
+            height: 28px;
+            background: #047857;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .steps li strong {
+            color: #2c2c2c;
+        }
+
+        .steps li .detail {
+            display: block;
+            font-size: 12px;
+            color: #9b9b9b;
+            margin-top: 4px;
+        }
+
+        /* Prompt Cards */
+        .prompt-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .prompt-card {
+            background: #fff;
+            border: 1px solid #e8e2db;
+            border-radius: 12px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .prompt-card .num {
+            width: 24px;
+            height: 24px;
+            background: #f3f4f6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #6b7280;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .prompt-card .text {
+            font-size: 14px;
+            color: #2c2c2c;
+            font-weight: 500;
+        }
+
+        .prompt-card .tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin-top: 4px;
+        }
+
+        .tag-photo {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .tag-text {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .tag-kids {
+            background: #fce7f3;
+            color: #9d174d;
+        }
+
+        .tag-design {
+            background: #ede9fe;
+            color: #5b21b6;
+        }
+
+        /* Category */
+        .category {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #9b9b9b;
+            margin: 28px 0 12px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #f0ece8;
+        }
+
+        /* Note box */
+        .note {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-size: 13px;
+            color: #92400e;
+            margin: 20px 0;
+        }
+
+        .note strong {
+            color: #78350f;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 32px 0 16px;
+            border-top: 1px solid #e8e2db;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            font-size: 12px;
+            color: #9b9b9b;
+        }
+
+        /* Print Button */
+        .print-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #047857;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(4, 120, 87, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .print-btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Hwabelle AI Designer</h1>
+        <p class="subtitle">Test Flow Guide</p>
+        <span class="badge">✦ Client Testing Document</span>
+    </div>
+
+    <!-- ACCESS -->
+    <div class="section">
+        <h2>How to Access</h2>
+        <p>The AI Designer test flow lets you experience the full subscriber journey — from the landing page, through
+            checkout, to the live AI chat — without any real charges.</p>
+
+        <div class="url-box">
+            <span class="icon">🔗</span>
+            <div>
+                <p class="label">Test Flow URL</p>
+                <p class="url">https://www.hwabelle.shop/designer-test</p>
+            </div>
+        </div>
+
+        <div class="note">
+            <strong>ℹ️ Test Mode:</strong> The amber banner at the top indicates you're in test mode. No real payments
+            are processed. You can reset the flow at any time using the "Reset" button.
+        </div>
+    </div>
+
+    <!-- WALKTHROUGH -->
+    <div class="section">
+        <h2>Test Flow Walkthrough</h2>
+        <p>Follow these steps to simulate the complete subscriber experience:</p>
+
+        <ol class="steps">
+            <li>
+                <strong>Landing Page</strong> — You'll see the subscription hero section with pricing ($9.99/mo),
+                feature highlights, and a mock chat preview.
+                <span class="detail">Click "Start for $9.99/mo" to continue →</span>
+            </li>
+            <li>
+                <strong>Simulated Checkout</strong> — A checkout card appears with pre-filled test card details (••••
+                4242). Review the order summary.
+                <span class="detail">Click "Subscribe & Get Access" to continue →</span>
+            </li>
+            <li>
+                <strong>Processing</strong> — A brief loading animation simulates payment processing (2 seconds).
+                <span class="detail">Automatic — wait for redirect →</span>
+            </li>
+            <li>
+                <strong>AI Designer Chat</strong> — You're now in the live AI chat with a "Subscription active"
+                confirmation.
+                <span class="detail">Try the suggested prompts below to test the AI →</span>
+            </li>
+            <li>
+                <strong>Test Expiry</strong> — Click "Expire" in the progress bar to see the locked/expired state. Click
+                a step button to reactivate.
+                <span class="detail">Use the "Reset" button in the amber banner to start over.</span>
+            </li>
+        </ol>
+    </div>
+
+    <!-- PROMPTS -->
+    <div class="section page-break">
+        <h2>Suggested Test Prompts</h2>
+        <p>Try these prompts in the AI chat to evaluate different capabilities:</p>
+
+        <p class="category">📸 Photo Identification</p>
+        <div class="prompt-grid">
+            <div class="prompt-card">
+                <span class="num">1</span>
+                <div>
+                    <p class="text">Upload a flower photo from your camera roll</p>
+                    <span class="tag tag-photo">Photo Upload</span>
+                </div>
+            </div>
+            <div class="prompt-card">
+                <span class="num">2</span>
+                <div>
+                    <p class="text">Upload a photo of a bouquet and ask: "Can I press these?"</p>
+                    <span class="tag tag-photo">Photo Upload</span>
+                </div>
+            </div>
+        </div>
+
+        <p class="category">🌸 Pressing Techniques</p>
+        <div class="prompt-grid">
+            <div class="prompt-card">
+                <span class="num">3</span>
+                <div>
+                    <p class="text">"I have fresh roses from my garden — what's the best way to press them?"</p>
+                    <span class="tag tag-text">Text Prompt</span>
+                </div>
+            </div>
+            <div class="prompt-card">
+                <span class="num">4</span>
+                <div>
+                    <p class="text">"How do I prevent mold when pressing flowers?"</p>
+                    <span class="tag tag-text">Text Prompt</span>
+                </div>
+            </div>
+            <div class="prompt-card">
+                <span class="num">5</span>
+                <div>
+                    <p class="text">"What drying support tools do I need?"</p>
+                    <span class="tag tag-text">Text Prompt</span>
+                </div>
+            </div>
+            <div class="prompt-card">
+                <span class="num">6</span>
+                <div>
+                    <p class="text">"My pressed flowers came out brown — what went wrong?"</p>
+                    <span class="tag tag-text">Text Prompt</span>
+                </div>
+            </div>
+        </div>
+
+        <p class="category">🎨 Design & Inspiration</p>
+        <div class="prompt-grid">
+            <div class="prompt-card">
+                <span class="num">7</span>
+                <div>
+                    <p class="text">"Design ideas for framing pressed flowers from my wedding bouquet"</p>
+                    <span class="tag tag-design">Design</span>
+                </div>
+            </div>
+            <div class="prompt-card">
+                <span class="num">8</span>
+                <div>
+                    <p class="text">"Can I use pressed flowers in resin?"</p>
+                    <span class="tag tag-design">Design</span>
+                </div>
+            </div>
+            <div class="prompt-card">
+                <span class="num">9</span>
+                <div>
+                    <p class="text">"What flowers look best for a botanical phone case?"</p>
+                    <span class="tag tag-design">Design</span>
+                </div>
+            </div>
+        </div>
+
+        <p class="category">👧 Kids & Mini Flower Press</p>
+        <div class="prompt-grid">
+            <div class="prompt-card">
+                <span class="num">10</span>
+                <div>
+                    <p class="text">"How can my kids use the mini flower press?"</p>
+                    <span class="tag tag-kids">Kids / Family</span>
+                </div>
+            </div>
+            <div class="prompt-card">
+                <span class="num">11</span>
+                <div>
+                    <p class="text">"What are the best flowers for children to press?"</p>
+                    <span class="tag tag-kids">Kids / Family</span>
+                </div>
+            </div>
+            <div class="prompt-card">
+                <span class="num">12</span>
+                <div>
+                    <p class="text">"Fun pressing project ideas for a 7-year-old?"</p>
+                    <span class="tag tag-kids">Kids / Family</span>
+                </div>
+            </div>
+            <div class="prompt-card">
+                <span class="num">13</span>
+                <div>
+                    <p class="text">"Is the mini press safe for a 4-year-old to use?"</p>
+                    <span class="tag tag-kids">Kids / Family</span>
+                </div>
+            </div>
+        </div>
+
+        <p class="category">🌿 Beginner Questions</p>
+        <div class="prompt-grid">
+            <div class="prompt-card">
+                <span class="num">14</span>
+                <div>
+                    <p class="text">"I'm brand new to flower pressing — where do I start?"</p>
+                    <span class="tag tag-text">Text Prompt</span>
+                </div>
+            </div>
+            <div class="prompt-card">
+                <span class="num">15</span>
+                <div>
+                    <p class="text">"What flowers are best for beginners?"</p>
+                    <span class="tag tag-text">Text Prompt</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WHAT TO LOOK FOR -->
+    <div class="section">
+        <h2>What to Look For</h2>
+        <p>When testing, pay attention to:</p>
+        <ol class="steps">
+            <li><strong>Accuracy</strong> — Does the AI correctly identify uploaded flowers?</li>
+            <li><strong>Practicality</strong> — Are pressing tips actionable and specific to the flower?</li>
+            <li><strong>Tone</strong> — Does it feel warm and friendly, not robotic or overly technical?</li>
+            <li><strong>Mini press / kids content</strong> — Does it mention the mini press when kids or family
+                activities come up?</li>
+            <li><strong>Drying tools</strong> — Does it naturally recommend drying support (silica gel, bamboo
+                charcoal)?</li>
+            <li><strong>Resin caution</strong> — If resin comes up, does it warn about yellowing and suggest test pieces
+                first?</li>
+        </ol>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <p>Hwabelle — Preserve nature's beauty, one bloom at a time.</p>
+        <p style="margin-top: 4px;">Questions? Contact your project manager.</p>
+    </div>
+
+    <!-- Print Button -->
+    <button class="print-btn no-print" onclick="window.print()">🖨️ Save as PDF</button>
+
+</body>
+
+</html>
