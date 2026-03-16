@@ -24,6 +24,7 @@ import Designer from "./pages/Designer";
 import DesignerChat from "./pages/DesignerChat";
 import DesignerTestFlow from "./pages/DesignerTestFlow";
 import OrderConfirmation from "./pages/OrderConfirmation";
+import MyOrders from "./pages/MyOrders";
 import AdminLogin from "./pages/AdminLogin";
 import Dashboard from "./pages/admin/Dashboard";
 import BlogManager from "./pages/admin/BlogManager";
@@ -66,6 +67,7 @@ const App = () => (
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/order-confirmation" element={<OrderConfirmation />} />
+              <Route path="/my-orders" element={<MyOrders />} />
               {/* Admin Routes */}
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin/dashboard" element={<Dashboard />} />

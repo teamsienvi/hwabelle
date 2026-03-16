@@ -23,7 +23,7 @@ const CartDrawer = () => {
                         price: item.price,
                         quantity: item.quantity,
                     })),
-                    successUrl: `${window.location.origin}/order-confirmation`,
+                    successUrl: `${window.location.origin}/my-orders`,
                     cancelUrl: window.location.href,
                 },
             });

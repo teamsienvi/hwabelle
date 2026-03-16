@@ -35,7 +35,7 @@ const OrderConfirmation = () => {
                                 <Link to="/shop">Continue Shopping</Link>
                             </Button>
                             <Button variant="hero-outline" size="lg" asChild>
-                                <Link to="/">Back to Home</Link>
+                                <Link to="/my-orders">Track Your Order</Link>
                             </Button>
                         </div>
                     </div>
