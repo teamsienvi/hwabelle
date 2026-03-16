@@ -199,7 +199,10 @@ Deno.serve(async (req) => {
             const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
             const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-            // Check idempotency
+            const customerEmail =
+                session.customer_details?.email || session.customer_email;
+
+            // Check idempotency — only insert if order doesn't exist yet
             const { data: existingOrder } = await supabase
                 .from("orders")
                 .select("id")
@@ -207,34 +210,27 @@ Deno.serve(async (req) => {
                 .maybeSingle();
 
             if (existingOrder) {
-                console.log(`Order already exists for session ${session.id}, skipping`);
-                return new Response(JSON.stringify({ received: true }), {
-                    status: 200,
-                    headers: { ...corsHeaders, "Content-Type": "application/json" },
-                });
-            }
-
-            const customerEmail =
-                session.customer_details?.email || session.customer_email;
-
-            // Insert order record
-            const { error: insertError } = await supabase.from("orders").insert({
-                stripe_session_id: session.id,
-                customer_email: customerEmail,
-                items: session.metadata || {},
-                total_amount: session.amount_total || 0,
-                currency: session.currency || "usd",
-                status: "paid",
-                shipping_address: session.shipping_details?.address || null,
-            });
-
-            if (insertError) {
-                console.error("Failed to insert order:", insertError);
+                console.log(`Order already exists for session ${session.id}, skipping insert`);
             } else {
-                console.log(`Order created for session ${session.id}`);
+                // Insert order record
+                const { error: insertError } = await supabase.from("orders").insert({
+                    stripe_session_id: session.id,
+                    customer_email: customerEmail,
+                    items: session.metadata || {},
+                    total_amount: session.amount_total || 0,
+                    currency: session.currency || "usd",
+                    status: "paid",
+                    shipping_address: session.shipping_details?.address || null,
+                });
+
+                if (insertError) {
+                    console.error("Failed to insert order:", insertError);
+                } else {
+                    console.log(`Order created for session ${session.id}`);
+                }
             }
 
-            // Send branded confirmation email
+            // Always send confirmation email (even if order was pre-created by fallback)
             if (customerEmail) {
                 await sendConfirmationEmail(customerEmail, session);
             }
