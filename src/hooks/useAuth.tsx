@@ -28,7 +28,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         .eq("user_id", userId)
         .eq("role", "admin")
         .maybeSingle();
-      
+
       if (error) {
         console.error("Error checking admin role:", error);
         return false;
@@ -76,7 +76,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signUp = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signUp({ email, password });
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${window.location.origin}/admin/dashboard`,
+      },
+    });
     return { error: error as Error | null };
   };
 

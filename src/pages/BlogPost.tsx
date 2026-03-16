@@ -21,7 +21,7 @@ const BlogPost = () => {
         .eq("slug", slug)
         .eq("status", "published")
         .maybeSingle();
-      
+
       if (error) throw error;
       return data;
     },
@@ -72,10 +72,10 @@ const BlogPost = () => {
 
       {/* Hero Image */}
       <div className="aspect-[21/9] overflow-hidden">
-        <img 
-          src={post.featured_image_url || blogImage} 
-          alt={post.title} 
-          className="w-full h-full object-cover" 
+        <img
+          src={post.featured_image_url || blogImage}
+          alt={post.title}
+          className="w-full h-full object-cover"
         />
       </div>
 
@@ -121,15 +121,17 @@ const BlogPost = () => {
 
             {/* Body - Markdown */}
             <div className="prose prose-lg max-w-none
-              prose-headings:font-serif prose-headings:text-foreground
-              prose-h2:text-xl prose-h2:mt-10 prose-h2:mb-4
-              prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-3
-              prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:mb-6
-              prose-ul:text-muted-foreground prose-ul:leading-relaxed
-              prose-ol:text-muted-foreground prose-ol:leading-relaxed
-              prose-li:text-muted-foreground
-              prose-strong:text-foreground
-              prose-a:text-primary prose-a:underline">
+              prose-headings:font-serif prose-headings:text-foreground prose-headings:tracking-tight
+              prose-h2:text-2xl prose-h2:md:text-3xl prose-h2:mt-14 prose-h2:mb-6 prose-h2:leading-snug prose-h2:border-b prose-h2:border-divider/40 prose-h2:pb-3
+              prose-h3:text-xl prose-h3:md:text-2xl prose-h3:mt-10 prose-h3:mb-5 prose-h3:leading-snug
+              prose-p:text-muted-foreground prose-p:text-base prose-p:md:text-lg prose-p:leading-[1.85] prose-p:mb-7
+              prose-ul:text-muted-foreground prose-ul:leading-[1.85] prose-ul:my-6 prose-ul:pl-6
+              prose-ol:text-muted-foreground prose-ol:leading-[1.85] prose-ol:my-6 prose-ol:pl-6
+              prose-li:text-muted-foreground prose-li:text-base prose-li:md:text-lg prose-li:mb-3
+              prose-strong:text-foreground prose-strong:font-semibold
+              prose-a:text-emerald-600 dark:prose-a:text-emerald-400 prose-a:underline prose-a:underline-offset-2
+              prose-blockquote:border-l-emerald-500 prose-blockquote:bg-secondary/30 prose-blockquote:py-1 prose-blockquote:px-6 prose-blockquote:rounded-r-lg prose-blockquote:not-italic
+              [&>*:first-child]:mt-0">
               <ReactMarkdown>{post.content || ""}</ReactMarkdown>
             </div>
 
@@ -138,8 +140,8 @@ const BlogPost = () => {
               <div className="mt-12 pt-8 border-t border-divider">
                 <div className="flex flex-wrap gap-2">
                   {post.seo_keywords.map((keyword: string, index: number) => (
-                    <span 
-                      key={index} 
+                    <span
+                      key={index}
                       className="px-3 py-1 text-xs bg-secondary text-muted-foreground rounded-full"
                     >
                       {keyword}
