@@ -1,4 +1,5 @@
 import "https://esm.sh/@supabase/functions-js/src/edge-runtime.d.ts";
+import Stripe from "https://esm.sh/stripe@14.14.0?target=deno&no-check";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 
 const corsHeaders = {
@@ -30,33 +31,140 @@ Deno.serve(async (req) => {
         const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
         const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-        let query = supabase
-            .from("orders")
-            .select("id, stripe_session_id, customer_email, items, total_amount, currency, status, shipping_address, created_at")
-            .order("created_at", { ascending: false });
-
+        // If session_id is provided, try to find/create the order directly from Stripe
         if (session_id) {
-            // Lookup by Stripe session — returns the single order + any others for the same email
-            const { data: sessionOrder } = await supabase
+            // Check if order already exists for this session
+            const { data: existingOrder } = await supabase
                 .from("orders")
                 .select("customer_email")
                 .eq("stripe_session_id", session_id)
                 .maybeSingle();
 
-            if (sessionOrder?.customer_email) {
-                query = query.eq("customer_email", sessionOrder.customer_email);
-            } else {
-                // Session not found yet (webhook may still be processing)
-                return new Response(JSON.stringify({ orders: [], pending: true }), {
+            let customerEmail = existingOrder?.customer_email;
+
+            // If no order exists yet, fetch from Stripe and create it (fallback for webhook)
+            if (!existingOrder) {
+                const stripeKey = Deno.env.get("STRIPE_SECRET_KEY");
+                if (stripeKey) {
+                    try {
+                        const stripe = new Stripe(stripeKey, {
+                            apiVersion: "2023-10-16",
+                            httpClient: Stripe.createFetchHttpClient(),
+                        });
+
+                        const session = await stripe.checkout.sessions.retrieve(session_id);
+
+                        if (session.payment_status === "paid") {
+                            customerEmail =
+                                session.customer_details?.email ||
+                                session.customer_email ||
+                                null;
+
+                            // Create the order (idempotent via unique stripe_session_id)
+                            const { error: insertError } = await supabase
+                                .from("orders")
+                                .insert({
+                                    stripe_session_id: session.id,
+                                    customer_email: customerEmail,
+                                    items: session.metadata || {},
+                                    total_amount: session.amount_total || 0,
+                                    currency: session.currency || "usd",
+                                    status: "paid",
+                                    shipping_address:
+                                        session.shipping_details?.address || null,
+                                });
+
+                            if (insertError) {
+                                // Likely duplicate — that's fine, just log it
+                                console.log("Insert note:", insertError.message);
+                            } else {
+                                console.log(
+                                    `Order created via fallback for session ${session_id}`
+                                );
+                            }
+                        } else {
+                            // Payment not completed yet
+                            return new Response(
+                                JSON.stringify({ orders: [], pending: true }),
+                                {
+                                    status: 200,
+                                    headers: {
+                                        ...corsHeaders,
+                                        "Content-Type": "application/json",
+                                    },
+                                }
+                            );
+                        }
+                    } catch (stripeErr) {
+                        console.error("Stripe session fetch error:", stripeErr);
+                        return new Response(
+                            JSON.stringify({ orders: [], pending: true }),
+                            {
+                                status: 200,
+                                headers: {
+                                    ...corsHeaders,
+                                    "Content-Type": "application/json",
+                                },
+                            }
+                        );
+                    }
+                }
+            }
+
+            // Now fetch all orders for this customer
+            if (customerEmail) {
+                const { data: orders, error } = await supabase
+                    .from("orders")
+                    .select(
+                        "id, stripe_session_id, customer_email, items, total_amount, currency, status, shipping_address, created_at"
+                    )
+                    .eq("customer_email", customerEmail)
+                    .order("created_at", { ascending: false });
+
+                if (error) {
+                    console.error("Error fetching orders:", error);
+                    return new Response(
+                        JSON.stringify({ error: "Failed to fetch orders" }),
+                        {
+                            status: 500,
+                            headers: {
+                                ...corsHeaders,
+                                "Content-Type": "application/json",
+                            },
+                        }
+                    );
+                }
+
+                return new Response(JSON.stringify({ orders: orders || [] }), {
                     status: 200,
-                    headers: { ...corsHeaders, "Content-Type": "application/json" },
+                    headers: {
+                        ...corsHeaders,
+                        "Content-Type": "application/json",
+                    },
                 });
             }
-        } else {
-            query = query.eq("customer_email", email.toLowerCase().trim());
+
+            // No email found
+            return new Response(
+                JSON.stringify({ orders: [], pending: true }),
+                {
+                    status: 200,
+                    headers: {
+                        ...corsHeaders,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
         }
 
-        const { data: orders, error } = await query;
+        // Email-based lookup
+        const { data: orders, error } = await supabase
+            .from("orders")
+            .select(
+                "id, stripe_session_id, customer_email, items, total_amount, currency, status, shipping_address, created_at"
+            )
+            .eq("customer_email", email.toLowerCase().trim())
+            .order("created_at", { ascending: false });
 
         if (error) {
             console.error("Error fetching orders:", error);
@@ -64,7 +172,10 @@ Deno.serve(async (req) => {
                 JSON.stringify({ error: "Failed to fetch orders" }),
                 {
                     status: 500,
-                    headers: { ...corsHeaders, "Content-Type": "application/json" },
+                    headers: {
+                        ...corsHeaders,
+                        "Content-Type": "application/json",
+                    },
                 }
             );
         }
