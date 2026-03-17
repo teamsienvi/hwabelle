@@ -21,7 +21,7 @@ const products = [
     id: "ai-designer-access",
     name: "AI Designer Access",
     variant: "Digital Product",
-    price: 9.99,
+    price: 19.99,
     description: "Unlock your personal AI flower preservation expert. Get instant flower identification, pressing guidance, design inspiration, and access to the full 9-module preservation course.",
     image: null,
     detailUrl: "/designer",

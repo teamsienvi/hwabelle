@@ -257,7 +257,7 @@ const DesignerTestFlow = () => {
                                 <div className="inline-flex items-center gap-2 border border-emerald-500/30 bg-emerald-500/5 rounded-full px-4 py-2 mb-8">
                                     <Sparkles size={14} className="text-emerald-600" />
                                     <span className="text-sm text-emerald-700 dark:text-emerald-400 font-medium">AI-Powered Floral Preservation</span>
-                                    <span className="bg-emerald-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">$9.99/mo</span>
+                                    <span className="bg-emerald-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">$19.99/mo</span>
                                 </div>
 
                                 <h1 className="font-serif text-4xl md:text-5xl mb-4">
@@ -303,7 +303,7 @@ const DesignerTestFlow = () => {
                                         onClick={() => setStep("checkout")}
                                     >
                                         <Zap size={16} />
-                                        Start for $9.99/mo
+                                        Start for $19.99/mo
                                     </Button>
                                 </motion.div>
                                 <p className="text-xs text-muted-foreground/50 mt-3">Cancel anytime · Instant access</p>
@@ -370,7 +370,7 @@ const DesignerTestFlow = () => {
                                 <div className="px-6 py-4 border-b border-border/50">
                                     <div className="flex items-center justify-between mb-3">
                                         <span className="text-sm">AI Floral Designer</span>
-                                        <span className="text-sm font-medium">$9.99/mo</span>
+                                        <span className="text-sm font-medium">$19.99/mo</span>
                                     </div>
                                     <div className="space-y-1.5 text-xs text-muted-foreground">
                                         <div className="flex items-center gap-2"><Check size={12} className="text-emerald-500" /> Advice tailored to your acrylic press kit</div>
@@ -404,7 +404,7 @@ const DesignerTestFlow = () => {
                                     {/* Total */}
                                     <div className="flex items-center justify-between pt-2 border-t border-border/50">
                                         <span className="text-sm font-medium">Total today</span>
-                                        <span className="text-lg font-bold">$9.99</span>
+                                        <span className="text-lg font-bold">$19.99</span>
                                     </div>
 
                                     <Button
@@ -655,7 +655,7 @@ const DesignerTestFlow = () => {
                                 onClick={() => setStep("checkout")}
                             >
                                 <Crown size={16} />
-                                Resubscribe — $9.99/mo
+                                Resubscribe — $19.99/mo
                             </Button>
                             <p className="text-xs text-muted-foreground/50 mt-4">
                                 Your previous conversations are saved and will be available when you resubscribe.

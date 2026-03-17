@@ -298,7 +298,7 @@ const DesignerChat = () => {
                                 asChild
                             >
                                 <a href="/designer">
-                                    Get AI Designer — $9.99
+                                    Get AI Designer — $19.99
                                     <Sparkles size={14} />
                                 </a>
                             </Button>

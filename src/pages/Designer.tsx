@@ -121,7 +121,7 @@ const Designer = () => {
       price: 34.99,
       image: productImage,
     });
-    addItem({ id: "ai-designer-access", name: "AI Designer Access", price: 9.99 });
+    addItem({ id: "ai-designer-access", name: "AI Designer Access", price: 19.99 });
     toast({
       title: "Added to cart",
       description: "Kit + AI Designer Access added to your cart.",
@@ -130,7 +130,7 @@ const Designer = () => {
   };
 
   const handleAddAIOnly = () => {
-    addItem({ id: "ai-designer-access", name: "AI Designer Access", price: 9.99 });
+    addItem({ id: "ai-designer-access", name: "AI Designer Access", price: 19.99 });
     toast({
       title: "Added to cart",
       description: "AI Designer Access added to your cart.",
@@ -162,7 +162,7 @@ const Designer = () => {
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-sm text-emerald-700 dark:text-emerald-400 mb-8">
                   <Sparkles size={14} />
                   <span>AI-Powered Floral Preservation</span>
-                  <span className="ml-1 font-semibold">$9.99/mo</span>
+                  <span className="ml-1 font-semibold">$19.99/mo</span>
                 </div>
 
                 <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight">
@@ -185,7 +185,7 @@ const Designer = () => {
                     onClick={handleAddAIOnly}
                   >
                     <Zap size={16} />
-                    Start for $9.99/mo
+                    Start for $19.99/mo
                   </Button>
                   <Button
                     variant="outline"
@@ -295,8 +295,8 @@ const Designer = () => {
                       )}
                       <div
                         className={`max-w-[80%] text-sm leading-relaxed ${msg.role === "user"
-                            ? "bg-foreground text-background rounded-2xl rounded-br-md px-4 py-3"
-                            : "text-foreground"
+                          ? "bg-foreground text-background rounded-2xl rounded-br-md px-4 py-3"
+                          : "text-foreground"
                           }`}
                       >
                         {msg.text}
@@ -449,7 +449,7 @@ const Designer = () => {
                     Already have your tools?
                   </p>
                   <div className="flex items-baseline justify-center gap-1">
-                    <span className="font-serif text-4xl">$9.99</span>
+                    <span className="font-serif text-4xl">$19.99</span>
                     <span className="text-muted-foreground text-sm">/month</span>
                   </div>
                 </div>
@@ -610,7 +610,7 @@ const Designer = () => {
                     className="gap-2 text-base px-8 border-foreground/20 hover:bg-foreground hover:text-background"
                     onClick={handleAddAIOnly}
                   >
-                    AI Designer Only — $9.99/mo
+                    AI Designer Only — $19.99/mo
                     <Sparkles size={16} />
                   </Button>
                 </div>
