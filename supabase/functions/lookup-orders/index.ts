@@ -27,7 +27,10 @@ function checkAiAccess(orders: any[]): boolean {
 // Fallback: check Stripe line items directly for orders without item_names in metadata
 async function checkAiAccessViaStripe(orders: any[]): Promise<boolean> {
     const stripeKey = Deno.env.get("STRIPE_SECRET_KEY");
-    if (!stripeKey) return false;
+    if (!stripeKey) {
+        console.log("checkAiAccessViaStripe: No STRIPE_SECRET_KEY");
+        return false;
+    }
 
     try {
         const stripe = new Stripe(stripeKey, {
@@ -38,22 +41,24 @@ async function checkAiAccessViaStripe(orders: any[]): Promise<boolean> {
         for (const order of orders) {
             if (order.status !== "paid" || !order.stripe_session_id) continue;
             try {
+                console.log(`Checking Stripe line items for session: ${order.stripe_session_id}`);
                 const lineItems = await stripe.checkout.sessions.listLineItems(order.stripe_session_id);
-                const descriptions = lineItems.data.map((li: any) =>
-                    (li.description || li.price?.product?.name || "").toLowerCase()
-                );
-                if (descriptions.some((d: string) =>
-                    d.includes("ai designer") || d.includes("ai-designer") || d.includes("designer access")
-                )) {
-                    return true;
+                for (const li of lineItems.data) {
+                    const desc = (li.description || "").toLowerCase();
+                    console.log(`  Line item: "${li.description}" (desc match: ${desc})`);
+                    if (desc.includes("ai designer") || desc.includes("ai-designer") || desc.includes("designer access")) {
+                        console.log("  -> AI Designer found via Stripe line items!");
+                        return true;
+                    }
                 }
-            } catch {
-                // Skip this order if Stripe lookup fails
+            } catch (e) {
+                console.error(`Stripe line item fetch failed for ${order.stripe_session_id}:`, e);
             }
         }
-    } catch {
-        // Stripe init failed
+    } catch (e) {
+        console.error("Stripe init failed in checkAiAccessViaStripe:", e);
     }
+    console.log("checkAiAccessViaStripe: No AI Designer found in any order");
     return false;
 }
 
