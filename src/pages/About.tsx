@@ -1,5 +1,13 @@
 import Layout from "@/components/layout/Layout";
 import lifestyleImage from "@/assets/pressing-in-action.png";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 const About = () => {
   const values = [
@@ -21,6 +29,14 @@ const About = () => {
     { year: "2023", event: "The idea blooms", description: "Inspired by a garden's fleeting beauty, Hwabelle was born." },
     { year: "2024", event: "First prototype", description: "Months of design refinement to create the perfect press." },
     { year: "2025", event: "Official launch", description: "Hwabelle Flower Press Kit available to the world." }
+  ];
+
+  const founderPhotos = [
+    { src: "/founders-photos/20191229_161023.jpg", alt: "Founder moment — 2019" },
+    { src: "/founders-photos/20200224_210717.jpg", alt: "Founder moment — 2020" },
+    { src: "/founders-photos/20230924_111236.jpg", alt: "Founder moment — 2023" },
+    { src: "/founders-photos/20241020_164657.jpg", alt: "Founder moment — 2024" },
+    { src: "/founders-photos/IMG-20260321-WA0005.jpg", alt: "Founder moment — 2026" },
   ];
 
   return (
@@ -146,6 +162,39 @@ const About = () => {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Founders Photo Carousel */}
+      <section className="py-16 md:py-24 bg-secondary">
+        <div className="container">
+          <h2 className="font-serif text-display mb-10 text-center">Meet the Founder</h2>
+          <div className="max-w-4xl mx-auto px-12">
+            <Carousel
+              opts={{ align: "start", loop: true }}
+              plugins={[Autoplay({ delay: 3500, stopOnInteraction: true })]}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-4">
+                {founderPhotos.map((photo, index) => (
+                  <CarouselItem
+                    key={index}
+                    className="pl-4 basis-full sm:basis-1/2 md:basis-1/3"
+                  >
+                    <div className="overflow-hidden rounded-xl aspect-[3/4]">
+                      <img
+                        src={photo.src}
+                        alt={photo.alt}
+                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                      />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
           </div>
         </div>
       </section>
