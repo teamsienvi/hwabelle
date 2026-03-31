@@ -10,6 +10,12 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import Autoplay from "embla-carousel-autoplay";
 
 const About = () => {
@@ -73,13 +79,25 @@ const About = () => {
               <CarouselContent className="-ml-4">
                 {carouselImages.map((src, index) => (
                   <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                    <div className="rounded-xl overflow-hidden bg-background shadow-sm border border-border">
-                      <img
-                        src={src}
-                        alt={`The art of flower pressing ${index + 1}`}
-                        className="w-full h-auto block"
-                      />
-                    </div>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <div className="rounded-xl overflow-hidden bg-background shadow-sm border border-border cursor-pointer">
+                          <img
+                            src={src}
+                            alt={`The art of flower pressing ${index + 1}`}
+                            className="w-full h-auto block hover:opacity-90 transition-opacity"
+                          />
+                        </div>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-[90vw] md:max-w-4xl bg-transparent border-none shadow-none p-0 flex justify-center items-center [&>button]:text-white">
+                        <DialogTitle className="sr-only">Flower pressing image {index + 1}</DialogTitle>
+                        <img
+                          src={src}
+                          alt={`The art of flower pressing ${index + 1}`}
+                          className="w-auto h-auto max-w-full max-h-[85vh] object-contain rounded-md"
+                        />
+                      </DialogContent>
+                    </Dialog>
                   </CarouselItem>
                 ))}
               </CarouselContent>
@@ -206,13 +224,25 @@ const About = () => {
                     key={index}
                     className="pl-4 basis-full sm:basis-1/2 md:basis-1/3"
                   >
-                    <div className="overflow-hidden rounded-xl aspect-[3/4]">
-                      <img
-                        src={photo.src}
-                        alt={photo.alt}
-                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                      />
-                    </div>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <div className="overflow-hidden rounded-xl aspect-[3/4] cursor-pointer">
+                          <img
+                            src={photo.src}
+                            alt={photo.alt}
+                            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                          />
+                        </div>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-[90vw] md:max-w-4xl bg-transparent border-none shadow-none p-0 flex justify-center items-center [&>button]:text-white">
+                        <DialogTitle className="sr-only">{photo.alt}</DialogTitle>
+                        <img
+                          src={photo.src}
+                          alt={photo.alt}
+                          className="w-auto h-auto max-w-full max-h-[85vh] object-contain rounded-md"
+                        />
+                      </DialogContent>
+                    </Dialog>
                   </CarouselItem>
                 ))}
               </CarouselContent>
