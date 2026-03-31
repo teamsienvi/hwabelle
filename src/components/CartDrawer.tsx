@@ -81,7 +81,7 @@ const CartDrawer = () => {
                                         <img
                                             src={item.image}
                                             alt={item.name}
-                                            className="w-20 h-20 object-cover rounded bg-secondary flex-shrink-0"
+                                            className="w-20 h-20 object-contain p-1 rounded bg-secondary flex-shrink-0"
                                         />
                                     )}
                                     <div className="flex-1 min-w-0">

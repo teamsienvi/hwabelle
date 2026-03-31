@@ -2,7 +2,6 @@ import Layout from "@/components/layout/Layout";
 import img1 from "@/assets/capture-moment.jpeg";
 import img2 from "@/assets/step-by-step.jpeg";
 import img3 from "@/assets/comparison.jpeg";
-import img4 from "@/assets/digital-designer.jpeg";
 import img5 from "@/assets/kit-contents.jpeg";
 import {
   Carousel,
@@ -14,7 +13,7 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 
 const About = () => {
-  const carouselImages = [img1, img2, img3, img4, img5];
+  const carouselImages = [img1, img2, img3, img5];
   const values = [
     {
       title: "Sustainability",
@@ -191,7 +190,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Founders Photo Carousel — hidden for now
+      {/* Founders Photo Carousel */}
       <section className="py-16 md:py-24 bg-secondary">
         <div className="container">
           <h2 className="font-serif text-display mb-10 text-center">Meet the Founder</h2>
@@ -223,7 +222,6 @@ const About = () => {
           </div>
         </div>
       </section>
-      */}
     </Layout>
   );
 };
