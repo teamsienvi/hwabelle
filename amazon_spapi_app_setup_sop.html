@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon SP-API Setup - SOP</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        .header-meta {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .alert {
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+        .alert-warning {
+            color: #856404;
+            background-color: #fff3cd;
+            border-color: #ffeeba;
+        }
+        .alert-info {
+            color: #0c5460;
+            background-color: #d1ecf1;
+            border-color: #bee5eb;
+        }
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        .quote-box {
+            background-color: #f9f9f9;
+            border-left: 4px solid #2980b9;
+            padding: 10px 20px;
+            margin: 15px 0;
+            font-style: italic;
+            color: #555;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f6f7;
+        }
+        code {
+            background-color: #f1f2f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.95em;
+            color: #e83e8c;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        @media print {
+            body {
+                padding: 0;
+            }
+            .alert-danger { border: 2px solid #721c24; }
+            .alert-info { border: 2px solid #0c5460; }
+            .alert-warning { border: 2px solid #856404; }
+            .quote-box { border-left: 4px solid #777; color: #000; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Amazon SP-API Setup — Standard Operating Procedure (SOP)</h1>
+    
+    <div class="header-meta">
+        <strong>Purpose:</strong> Step-by-step instructions for setting up Amazon Selling Partner API (SP-API) access so we can automate Multi-Channel Fulfillment (MCF) orders (or other API actions) from a connected application.<br>
+        <strong>Who does this:</strong> The primary Seller Central account holder (the client).<br>
+        <strong>Time estimate:</strong> ~15-30 minutes (plus Amazon review period of 1-3 business days).
+    </div>
+
+    <h2>What You'll Be Creating</h2>
+    <p>By the end of this guide, you will have generated three credentials that we need for the integration:</p>
+    
+    <table>
+        <tr>
+            <th>Credential</th>
+            <th>What It Is</th>
+        </tr>
+        <tr>
+            <td><strong>Client ID</strong></td>
+            <td>Identifies your application to Amazon (like a username)</td>
+        </tr>
+        <tr>
+            <td><strong>Client Secret</strong></td>
+            <td>A private key paired with the Client ID (like a password)</td>
+        </tr>
+        <tr>
+            <td><strong>Refresh Token</strong></td>
+            <td>A long-lived token that lets our system make API calls on your behalf</td>
+        </tr>
+    </table>
+
+    <div class="alert alert-danger">
+        <strong>⚠️ CAUTION:</strong> Treat these credentials like passwords. Never share them over unsecured channels. We recommend sharing via a secure method (e.g., a password manager share link or OneTimeSecret).
+    </div>
+
+    <h2>Phase 1 — Create a Solution Provider Portal (SPP) Account</h2>
+    
+    <div class="alert alert-info">
+        <strong>ℹ️ NOTE:</strong> Amazon is migrating all developer management to the Solution Provider Portal. If you have already registered as a developer in Seller Central, you can still sign in here.
+    </div>
+
+    <ol>
+        <li>Go to the <strong>Solution Provider Portal</strong>: <a href="https://developer.amazonservices.com">https://developer.amazonservices.com</a></li>
+        <li>Click <strong>Sign In</strong> or <strong>Create Account</strong>.</li>
+        <li>Sign in using your <strong>primary Amazon Seller Central credentials</strong> (the main email/password you use to log into Seller Central).</li>
+        <li>If prompted, complete two-factor authentication (2FA).</li>
+    </ol>
+
+    <h2>Phase 2 — Complete Your Developer Profile</h2>
+    <p>This registers your Amazon seller account as a "Private Developer" — meaning you're building an app that only your own business will use. There is no fee for private developer registration.</p>
+
+    <ol>
+        <li>Once signed into the Solution Provider Portal, go to <strong>Settings → Developer Profile</strong> (or click the prompt to "Register as a Developer").</li>
+        <li>Fill out the Developer Profile form:
+            <ul>
+                <li><strong>Organization name:</strong> Your legal business entity name.</li>
+                <li><strong>Contact email &amp; phone:</strong> Your primary business details.</li>
+            </ul>
+        </li>
+        <li><strong>Data Access:</strong> From the dropdown, select: <em>"Private Developer: I build application(s) that integrate my own company with Amazon Services APIs"</em></li>
+        <li><strong>Roles:</strong> Select the roles that apply to the integration. For an MCF fulfillment integration, ensure these are selected:
+            <ul>
+                <li>✅ <strong>Direct-to-Consumer Shipping</strong></li>
+                <li>✅ <strong>Amazon Fulfillment</strong></li>
+            </ul>
+        </li>
+        <li><strong>Use Cases (Template):</strong> Note the exact functionality being developed. You may copy and paste the generalized statement below or modify it as needed:
+            <div class="quote-box">
+                "We are setting up a private integration between our own sales channels/websites and Amazon Multi-Channel Fulfillment (MCF). The system will use the Fulfillment Outbound API to automatically submit incoming orders to our FBA inventory for picking, packing, and shipping directly to the customer, as well as the Orders API to update tracking statuses."
+            </div>
+        </li>
+        <li><strong>Security Controls (Template):</strong> Describe how your company protects Amazon credentials. You may copy and paste the generalized statement below or modify it to match your infrastructure requirements:
+            <div class="quote-box">
+                "All SP-API credentials (LWA tokens, AWS keys) are stored purely as encrypted environment variables in our secure cloud platform. Credentials are never exposed in client-side code, frontend applications, or public source control repositories. Development access is strictly limited to authorized engineering personnel using role-based access control."
+            </div>
+        </li>
+        <li>Check the box confirming you agree to the Solution Provider Agreement, Acceptable Use Policy, and Data Protection Policy.</li>
+        <li>Click <strong>Register</strong>.</li>
+        <li>Wait for Amazon's review (typically 1-3 business days). If Amazon asks follow-up questions via case log/email, respond within 5 days to prevent case closure.</li>
+    </ol>
+
+    <h2>Phase 3 — Register Your Application</h2>
+    <p>Once your developer profile is approved, you can create your private app directly in the portal.</p>
+
+    <ol>
+        <li>Sign in to the <strong>Solution Provider Portal</strong>.</li>
+        <li>Click <strong>Add new app client</strong> (or "Register an application").</li>
+        <li>Fill in the application details:
+            <ul>
+                <li><strong>App name:</strong> e.g., "Internal E-Commerce Sync" or "MCF Integration"</li>
+                <li><strong>API Type:</strong> SP-API</li>
+                <li><strong>App type:</strong> Private</li>
+            </ul>
+        </li>
+        <li><strong>IAM ARN:</strong> Amazon requires an AWS IAM Role ARN securely tied to the Application. Paste the ARN generated for you by our team (for example: <code>arn:aws:iam::123456789012:role/SellingPartnerAPIRole</code>).</li>
+        <li>Click <strong>Save and Exit</strong> or <strong>Register</strong>.</li>
+    </ol>
+
+    <div class="alert alert-info">
+        <strong>ℹ️ NOTE:</strong> Your application will be in "Draft" status. This is perfectly fine — private apps do not need to be published. You can self-authorize a draft app.
+    </div>
+
+    <h2>Phase 4 — Self-Authorize Your Application</h2>
+    <p>This is the critical step where you generate the <strong>Refresh Token</strong>.</p>
+
+    <div class="alert alert-warning">
+        <strong>⚠️ IMPORTANT:</strong> To self-authorize a Seller Central account, you must be the <strong>Primary User</strong> of that account. Secondary users <em>cannot</em> self-authorize.
+    </div>
+
+    <ol>
+        <li>Find your newly created app in the list on the Solution Provider Portal.</li>
+        <li>Look for the <strong>"Authorize app"</strong> button and click it.</li>
+        <li>A <strong>Refresh Token</strong> will appear on the screen.</li>
+        <li><strong>Copy this token immediately</strong> and save it securely! This is your one chance to see it displayed.</li>
+    </ol>
+
+    <h2>Phase 5 — Retrieve Your Client ID and Client Secret</h2>
+    
+    <ol>
+        <li>In the Solution Provider Portal, find your application and click <strong>Edit app</strong> (or "View").</li>
+        <li>Click <strong>View</strong> under "LWA credentials" for your application.</li>
+        <li>You will see:
+            <ul>
+                <li><strong>Client Identifier (Client ID)</strong> — starts with <code>amzn1.application-oa2-client.</code></li>
+                <li><strong>Client Secret</strong> — a long 64-character alphanumeric string <em>(Ensure you copy all 64 characters!)</em></li>
+            </ul>
+        </li>
+        <li>Copy both values.</li>
+    </ol>
+
+    <h2>Phase 6 — Send Us the Credentials</h2>
+    <p>Once you have all three values, please share them with us securely:</p>
+    <ul>
+        <li><strong>1. Client ID</strong> (<code>amzn1.application-oa2-client.abc...</code>)</li>
+        <li><strong>2. Client Secret</strong> (<code>amzn1.oa2-cs.v1.abc...</code>) <em>(Ensure nothing is cut off!)</em></li>
+        <li><strong>3. Refresh Token</strong> (<code>Atzr|IQEBLzAtAh...</code>)</li>
+    </ul>
+
+    <p><strong>Recommended Secure Sharing Methods:</strong></p>
+    <ul>
+        <li>✅ <strong>OneTimeSecret.com</strong> — Create a secret link that self-destructs after being read once.</li>
+        <li>✅ <strong>Password manager share</strong> — Use a service like 1Password or LastPass.</li>
+        <li>❌ <strong>Do NOT send these in a regular email, text message, or chat.</strong></li>
+    </ul>
+
+</body>
+</html>

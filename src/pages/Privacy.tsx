@@ -8,7 +8,7 @@ const Privacy = () => {
           <div className="max-w-3xl mx-auto">
             <p className="caption mb-4">Policies</p>
             <h1 className="font-serif text-display-lg mb-8">Privacy Policy</h1>
-            <p className="text-muted-foreground mb-8">Last updated: March 31, 2026</p>
+            <p className="text-muted-foreground mb-8">Last updated: April 9, 2026</p>
             
             <div className="space-y-8 text-muted-foreground leading-relaxed">
               <p>
@@ -90,7 +90,7 @@ const Privacy = () => {
               </section>
 
               <section>
-                <h2 className="font-serif text-xl text-foreground mb-3">5. Data Retention</h2>
+                <h2 className="font-serif text-xl text-foreground mb-3">5. Data Retention and Disposal</h2>
                 <p>We retain personal information only for as long as reasonably necessary to:</p>
                 <ul className="list-disc pl-5 mt-3 space-y-2">
                   <li>Complete and support your order</li>
@@ -100,7 +100,10 @@ const Privacy = () => {
                   <li>Comply with applicable laws</li>
                 </ul>
                 <p className="mt-3">
-                  Where feasible, shipping-related personal information is deleted, anonymized, or securely archived after it is no longer needed for these purposes.
+                  Transactional and order-related personal data is retained for a maximum of 30 days after order completion, unless a longer period is required for legal, tax, or dispute-resolution obligations. Shipping-related PII is deleted or anonymized within 30 days of delivery confirmation unless subject to a legal hold.
+                </p>
+                <p className="mt-3">
+                  When personal data is no longer required, it is permanently deleted or irreversibly anonymized using industry-standard secure disposal methods. For full details, see our <a href="/data-protection" className="text-primary underline">Data Protection Policy</a>.
                 </p>
               </section>
 
@@ -108,11 +111,13 @@ const Privacy = () => {
                 <h2 className="font-serif text-xl text-foreground mb-3">6. Data Security</h2>
                 <p>We use reasonable administrative, technical, and organizational safeguards to protect personal information, including:</p>
                 <ul className="list-disc pl-5 mt-3 space-y-2">
-                  <li>HTTPS and encrypted transmission where supported</li>
-                  <li>Access controls and least-privilege access</li>
-                  <li>Monitoring for unauthorized access</li>
-                  <li>Secure storage practices</li>
-                  <li>Vendor and platform protections where applicable</li>
+                  <li>TLS 1.2+ encryption for all data transmitted over public networks</li>
+                  <li>AES-256 encryption (or equivalent) for data at rest</li>
+                  <li>Role-based access control and least-privilege access</li>
+                  <li>Multi-factor authentication on administrative and infrastructure accounts</li>
+                  <li>Continuous monitoring and alerting for unauthorized access attempts</li>
+                  <li>Encrypted credential and secret management (never in plaintext or source code)</li>
+                  <li>Vendor and platform security protections</li>
                 </ul>
                 <p className="mt-3">
                   No method of transmission over the internet or storage system is completely secure, and we cannot guarantee absolute security.
@@ -120,7 +125,17 @@ const Privacy = () => {
               </section>
 
               <section>
-                <h2 className="font-serif text-xl text-foreground mb-3">7. Cookies and Similar Technologies</h2>
+                <h2 className="font-serif text-xl text-foreground mb-3">7. Incident Response</h2>
+                <p>
+                  We maintain a formal incident response plan. If we become aware of unauthorized access, misuse, loss, or disclosure of personal information—including information received from marketplace partners—we will promptly investigate and contain the incident, remediate the root cause, and notify affected individuals and partners as required.
+                </p>
+                <p className="mt-3">
+                  For security incidents involving data received from marketplace partners such as Amazon, we will notify the partner within the timeframes and through the channels specified in the applicable partner data protection policy. For full incident response procedures, see our <a href="/data-protection" className="text-primary underline">Data Protection Policy</a>.
+                </p>
+              </section>
+
+              <section>
+                <h2 className="font-serif text-xl text-foreground mb-3">8. Cookies and Similar Technologies</h2>
                 <p>We may use cookies, pixels, and similar technologies to:</p>
                 <ul className="list-disc pl-5 mt-3 space-y-2">
                   <li>Keep the Site functioning properly</li>
@@ -132,7 +147,7 @@ const Privacy = () => {
               </section>
 
               <section>
-                <h2 className="font-serif text-xl text-foreground mb-3">8. Your Rights</h2>
+                <h2 className="font-serif text-xl text-foreground mb-3">9. Your Rights</h2>
                 <p>Depending on your location, you may have rights to:</p>
                 <ul className="list-disc pl-5 mt-3 space-y-2">
                   <li>Request access to your personal information</li>
@@ -144,31 +159,32 @@ const Privacy = () => {
               </section>
 
               <section>
-                <h2 className="font-serif text-xl text-foreground mb-3">9. Third-Party Services and Links</h2>
+                <h2 className="font-serif text-xl text-foreground mb-3">10. Third-Party Services and Links</h2>
                 <p>
                   Our Site may contain links to third-party websites or use third-party services. We are not responsible for the privacy or security practices of third parties.
                 </p>
               </section>
 
               <section>
-                <h2 className="font-serif text-xl text-foreground mb-3">10. Children's Privacy</h2>
+                <h2 className="font-serif text-xl text-foreground mb-3">11. Children's Privacy</h2>
                 <p>
                   Our Site is not intended for children under 13, and we do not knowingly collect personal information from children under 13.
                 </p>
               </section>
 
               <section>
-                <h2 className="font-serif text-xl text-foreground mb-3">11. Changes to This Policy</h2>
+                <h2 className="font-serif text-xl text-foreground mb-3">12. Changes to This Policy</h2>
                 <p>
                   We may update this Privacy Policy from time to time. Any updates will be posted on this page with a revised "Last updated" date.
                 </p>
               </section>
 
               <section>
-                <h2 className="font-serif text-xl text-foreground mb-3">12. Contact Us</h2>
+                <h2 className="font-serif text-xl text-foreground mb-3">13. Contact Us</h2>
                 <p>If you have questions about this Privacy Policy or our data practices, contact us at:</p>
                 <div className="mt-3">
                   <p>HWABELLE</p>
+                  <p>Email: support@hwabelle.shop</p>
                 </div>
               </section>
             </div>

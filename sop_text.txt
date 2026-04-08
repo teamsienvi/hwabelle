@@ -1,0 +1,207 @@
+Hwabelle Amazon SP-API Setup — Standard Operating
+Procedure (SOP)
+Purpose: Step-by-step instructions for setting up Amazon Selling Partner API (SP-API) access so we can automate
+Multi-Channel Fulfillment (MCF) orders from the website.
+Who does this: The primary Seller Central account holder (the client).
+Time estimate: ~15-30 minutes (plus Amazon review period of 1-3 business days).
+What You'll Be Creating
+By the end of this guide, you will have generated three credentials that we need for the integration:
+Credential What It Is
+Client ID Identifies your application to Amazon (like a username)
+Client Secret A private key paired with the Client ID (like a password)
+Refresh Token A long-lived token that lets our system make API calls on your behalf
+[!CAUTION] Treat these credentials like passwords. Never share them over unsecured channels. We recommend
+sharing via a secure method (e.g., a password manager share link, encrypted message, or a short-lived secure note
+service like OneTimeSecret).
+Phase 1 — Create a Solution Provider Portal (SPP) Account
+[!NOTE] If you have already registered as a developer or can already see "Develop Apps" in your Seller Central
+menu, skip to Phase 3.
+1. Go to the Solution Provider Portal: https://developer.amazonservices.com
+2. Click "Sign In" or "Create Account"
+3. Sign in using your primary Amazon Seller Central credentials (the main email/password you use to log
+into Seller Central)
+4. If prompted, complete two-factor authentication (2FA)
+[!TIP] Amazon is migrating all developer management to the Solution Provider Portal. If you still see the old
+developer console at sellercentral.amazon.com/sellingpartner/developerconsole , that also works — but
+the SPP is the new recommended path.
+Phase 2 — Complete Your Developer Profile (Private Developer
+Registration)
+This registers your Amazon seller account as a "Private Developer" — meaning you're building an app that only your
+own business will use. There is no fee for private developer registration.
+Steps:
+1. Sign in to the Solution Provider Portal
+Alternatively: In Seller Central, go to Apps & Services → Develop Apps
+2. If you see a "Register as a Developer" prompt, click it to begin
+3. If you see Settings → Developer Profile in the SPP, go there
+4. Fill out the Developer Profile form:
+Contact Information
+Organization name: Hwabelle (or your legal business entity name)
+Contact email: Your primary business email
+Contact phone: Your business phone number
+Data Access
+From the dropdown, select: "Private Developer: I build application(s) that integrate my own company
+with Amazon Services APIs"
+Roles
+Select the following roles that apply to our MCF integration:
+Role Select?
+Direct-to-Consumer Shipping✅  Yes
+Amazon Fulfillment ✅  Yes
+[!IMPORTANT] At minimum, you need the "Amazon Fulfillment" (or "Direct-to-Consumer Shipping") role. This
+grants access to the Fulfillment Outbound API which powers MCF.
+Use Cases
+Describe your use case. Here's a suggested description you can copy/paste:
+"We are integrating our Hwabelle botanical e-commerce website with Amazon Multi-Channel Fulfillment (MCF) to
+automatically create fulfillment orders for products stored in our FBA inventory. When a customer places an order
+on our site, the system will use the Fulfillment Outbound API to submit the order to Amazon for picking, packing,
+and shipping directly to the customer."
+Security Controls
+Describe how your data is protected. A simple but accurate response:
+"API credentials are stored as encrypted environment variables in our secure cloud hosting platform (Supabase).
+Credentials are never stored in source code or client-side applications. Access is restricted to authorized
+development personnel only."
+5. Check the box confirming you agree to the Solution Provider Agreement, Acceptable Use Policy, and Data
+Protection Policy
+6. Click "Register"
+7. Wait for Amazon's review. You'll receive a case update via email (typically 1-3 business days). If Amazon
+asks follow-up questions, respond within 5 days to prevent case closure.
+Phase 3 — Register Your Application
+Once your developer profile is approved, you can create your private app.
+Steps:
+1. Sign in to the Solution Provider Portal
+Or in Seller Central: Apps & Services → Develop Apps
+2. Click "Add new app client" (or "Register an application")
+3. Fill in the application details:
+Field Value
+App name e.g., "Hwabelle MCF Integration"
+API Type SP-API
+App type Private
+4. For IAM ARN — Amazon requires an AWS IAM Role ARN. Here are two options:
+Option A: If we have already provided you an IAM ARN:
+Paste the ARN we gave you (it looks like:
+arn:aws:iam::123456789012:role/SellingPartnerAPIRole )
+Option B: If you need to create one yourself:
+See the Appendix: Creating an IAM Role section at the bottom of this document
+5. Click "Save and Exit" or "Register"
+[!NOTE] Your application will be in "Draft" status. This is perfectly fine — private apps do not need to be
+published. You can self-authorize a draft app.
+Phase 4 — Self-Authorize Your Application (Generate the Refresh Token)
+This is the critical step where you generate the Refresh Token.
+Steps:
+1. Sign in to the Solution Provider Portal
+Or in Seller Central: Apps & Services → Develop Apps
+2. Find your newly created app in the list
+3. Look for an "Authorize app" button next to your app
+4. Click "Authorize app"
+5. A Refresh Token will appear on screen.
+[!CAUTION] Copy this token immediately and save it securely! This is your one chance to see it displayed. While
+generating a new refresh token doesn't invalidate the old one, it's best practice to copy it right away.
+6. Store the Refresh Token in a secure location (password manager, encrypted note, etc.)
+[!IMPORTANT] To self-authorize a Seller Central account, you must be the Primary User of that account.
+Secondary users cannot self-authorize.
+Phase 5 — Retrieve Your Client ID and Client Secret
+Steps:
+1. Sign in to the Solution Provider Portal
+2. In the top navigation, select "Develop Apps"
+3. Find your application and click "Edit app" (or "View")
+4. Click "View" under "LWA credentials" for your application
+5. You will see:
+Client Identifier (Client ID) — starts with amzn1.application-oa2-client.
+Client Secret — a long alphanumeric string
+6. Copy both values and save them securely
+Phase 6 — Send Us the Credentials
+Once you have all three values, please share them with us securely:
+Credential Example Format
+Client ID amzn1.application-oa2-client.abc123def456...
+Client Secret amzn1.oa2-cs.v1.abc123def456ghi789...
+Refresh Token Atzr|IQEBLzAtAh...
+Recommended Secure Sharing Methods:
+✅  OneTimeSecret.com — Create a secret link that self-destructs after being read once
+✅  Password manager share — Use a service like 1Password or LastPass to share securely
+✅  Encrypted email — If your email supports encryption
+❌  Do NOT send these in a regular email, text message, or chat
+Quick-Reference Checklist
+Use this to track your progress:
+ Phase 1: Created / signed into Solution Provider Portal account
+ Phase 2: Completed Developer Profile (Private Developer)
+ Phase 2: Received approval email from Amazon
+ Phase 3: Registered a new Private application
+ Phase 4: Self-authorized the app → Refresh Token copied ✅
+ Phase 5: Retrieved Client ID ✅
+ Phase 5: Retrieved Client Secret ✅
+ Phase 6: Sent all 3 credentials to developer via secure method
+Appendix: Creating an IAM Role (If Needed)
+[!NOTE] You only need this section if we haven't already provided you an IAM ARN. In most cases, we will
+create the IAM role and give you the ARN to paste during Phase 3.
+Creating a Minimal IAM Role in AWS:
+1. Go to the AWS IAM Console
+2. Click "Roles" → "Create role"
+3. Select "Another AWS account" as the trusted entity
+4. For Account ID, enter your own AWS account ID
+5. Click "Next: Permissions" → Skip adding policies (no permissions needed)
+6. Name the role (e.g., SellingPartnerAPIRole )
+7. Click "Create role"
+8. Click on the newly created role and copy the Role ARN
+9. Use this ARN when registering your app in Phase 3
+Adding the Trust Policy:
+After creating the role, update its trust policy to allow STS AssumeRole:
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::YOUR_ACCOUNT_ID:root"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+Replace YOUR_ACCOUNT_ID  with your actual AWS account ID.
+Appendix: Seller Central Permissions for Secondary Users
+If you are granting a secondary user (e.g., your developer/agency) access to manage these tools, the following
+permissions must be enabled by the primary account holder:
+Required Permissions:
+Category Permission Setting
+FBA / MCF Manage FBA Inventory ✅  View & Edit
+FBA / MCF Manage FBA Shipments ✅  View & Edit
+FBA / MCF Manage Multi-Channel Fulfillment✅  View & Edit
+Orders Manage Orders ✅  View & Edit
+Developer Develop Apps (Developer Central)✅  View & Edit
+Developer Manage Apps & Services ✅  View & Edit
+[!WARNING] If "Develop Apps" is not listed as a permission option, the primary account holder may need to first
+register as a developer (Phase 2) from their own login. Once they register, the permission option will appear for
+secondary users.
+How to Set Permissions:
+1. Log into Seller Central with the primary/owner account
+2. Go to ⚙  Settings → User Permissions
+3. Click "Manage Permissions" next to the secondary user
+4. Enable all permissions listed above
+5. Click "Save Changes"
+Troubleshooting
+Issue Solution
+Can't find "Develop
+Apps" in Seller Central
+Go directly to https://sellercentral.amazon.com/sellingpartner/developerconsole or
+use the Solution Provider Portal at https://solutionproviderportal.amazon.com/
+Registration says
+"pending review"
+This is normal. Amazon reviews private developer registrations within 1-3 business
+days. Check your email for case updates.
+Amazon asked follow-
+up questions Respond within 5 days or your case will be auto-closed.
+Can't self-authorize You must be the Primary User of the Seller Central account. Secondary users cannot
+self-authorize.
+Refresh Token not
+appearing Make sure the app has been saved/registered first. Try refreshing the page.
+"Unauthorized" errors
+after providing
+credentials
+Double-check that the Client ID, Client Secret, and Refresh Token are all from the
+same application.
+Reference Links
+Solution Provider Portal
+Register as a Private Developer (Amazon Docs)
+Self-Authorization (Amazon Docs)
+View Application Information and Credentials
+Register Your Application
+SP-API Roles
