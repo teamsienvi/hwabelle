@@ -42,8 +42,50 @@ const FAQ = () => {
     return acc;
   }, {} as Record<string, FAQ[]>);
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can I press a wedding bouquet with the Hwabelle Flower Press Kit?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The Hwabelle Acrylic Flower Press Kit is designed for preserving wedding bouquets, garden flowers, and sentimental blooms. For best results, start pressing as soon as possible after the event."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does flower pressing take with Hwabelle?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The drying and pressing process typically takes between 1 and 3 weeks, depending on the thickness of the flower petals and local humidity levels."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why choose an acrylic flower press over a wooden one?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Hwabelle's clear acrylic plates offer maximum visibility. You can design and arrange your delicate wedding bouquet petals perfectly before tightening the brass bolts, ensuring no overlapping or misplaced stems."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What flowers are best for pressing?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Flatter blooms (like pansies, daisies, and violas), thin garden flowers, individual petals, and leaves press best. Thicker flowers (like roses and carnations) can be pressed by splitting them in half or pressing individual petals separately."
+        }
+      }
+    ]
+  };
+
   return (
     <Layout>
+      <script type="application/ld+json">
+        {JSON.stringify(faqSchema)}
+      </script>
       {/* Header */}
       <section className="py-16 md:py-24 bg-secondary">
         <div className="container">
